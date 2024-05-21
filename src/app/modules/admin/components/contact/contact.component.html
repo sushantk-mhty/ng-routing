@@ -1,0 +1,56 @@
+<section class="py-3">
+    <div class="row">
+      <div class="col-12">
+        <p class="bg-light py-3 px-3 border rounded">
+          <strong>User Contact Information</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+  <section  class="py-3" >
+    <div class="container" >
+        <ng-container *ngIf="userData$ | async as userData" >
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Username</th>
+                        <th>Website</th>
+                        <th>Company</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of userData" (mouseup)="detectRightMouseClick($event,user)">
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.phone}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.website}}</td>
+                        <td>{{user.company.name}}</td>
+                        <td>{{user.address.street}}, {{user.address.city}}  </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </div>
+  </section>
+
+  <section>
+    <div id="contextmenu" class="contextmenu" [ngStyle]="rightPanelStyle" (clickOutside)="closeContextMenu()"
+(mouseleave)="closeContextMenu()">
+<ul class="menu">
+    <li (click)="onViewContext()"><a><fa-icon [icon]="faEye" class="mx-2"></fa-icon> View User </a></li>
+    <li ><a><fa-icon [icon]="faPencilAlt" class="mx-2" ></fa-icon> Edit </a></li>
+    <li><a><fa-icon [icon]="faCloudDownloadAlt" class="mx-2"></fa-icon> Download </a></li>
+    <li ><a><fa-icon [icon]="faUserTimes" class="mx-2"></fa-icon> Delete </a></li>
+</ul>
+</div>
+  </section>
+  <!-- <section>
+    <pre> {{userData$ | async | json}}</pre>
+  </section> -->
